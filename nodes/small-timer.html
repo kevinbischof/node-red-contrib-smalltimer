@@ -1,0 +1,85 @@
+<script type="text/javascript">
+    RED.nodes.registerType('small-timer',{
+        category: "timer",
+        inputs: 1,
+        outputs: 1,
+        color: '#4287f5',
+        icon: "font-awesome/fa-clock-o",
+        label: function() {
+            return this.name||"small-timer";
+        },
+        inputLabels: "input",
+        outputLabels: "output",
+        align: 'center',
+    });
+</script>
+
+<script type="text/html" data-template-name="small-timer">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="small-timer">
+    <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
+
+<!--<script type="text/html" data-help-name="node-type">-->
+<!--    <p>Creates and handels timer</p>-->
+
+<!--    <h3>Inputs</h3>-->
+<!--    <dl class="message-properties">-->
+<!--        <dt>payload-->
+<!--            <span class="property-type">string</span>-->
+<!--        </dt>-->
+<!--        <dd> the payload of the message to publish. </dd>-->
+<!--        <dt class="optional">time "HH:MM:SS" <span class="property-type">string</span></dt>-->
+<!--        <dd> sets a new timer.</dd>-->
+<!--        <dt class="optional">remove <span class="property-type">string</span></dt>-->
+<!--        <dd> removes the next timer.</dd>-->
+<!--        <dt class="optional">remove "ID" <span class="property-type">string</span></dt>-->
+<!--        <dd> removes a timer with a given id.</dd>-->
+<!--        <dt class="optional">next <span class="property-type">string</span></dt>-->
+<!--        <dd> lists next timer.</dd>-->
+<!--        <dt class="optional">list <span class="property-type">string</span></dt>-->
+<!--        <dd> lists all timers.</dd>-->
+<!--    </dl>-->
+
+<!--    <h3>Outputs</h3>-->
+<!--    <ol class="node-ports">-->
+<!--        <li>Standard output-->
+<!--            <dl class="message-properties">-->
+<!--                <dt>payload <span class="property-type">string</span></dt>-->
+<!--                <dd>the standard output of the command.</dd>-->
+<!--            </dl>-->
+<!--        </li>-->
+<!--        <li>Standard error-->
+<!--            <dl class="message-properties">-->
+<!--                <dt>payload <span class="property-type">string</span></dt>-->
+<!--                <dd>the standard error of the command.</dd>-->
+<!--            </dl>-->
+<!--        </li>-->
+<!--    </ol>-->
+
+<!--    <h3>Details</h3>-->
+<!--    <p><code>msg.payload</code> is used as the payload of the published message.-->
+<!--    <h4>Examples</h4>-->
+<!--    <p><i>time "HH:MM:SS"</i><br>-->
+<!--        <code>msg.payload = "00:10:00"</code> will set a new timer for 10 minutes. The syntax for the string input is-->
+<!--        HH:MM:SS.-->
+<!--    </p>-->
+<!--    <p><i>remove</i><br>-->
+<!--        <code>msg.payload = "remove"</code> will remove the next timer if at least one timer is set.-->
+<!--    </p>-->
+<!--    <p><i>remove "ID"</i><br>-->
+<!--        <code>msg.payload = "remove ID"</code> will remove the timer with a given ID.-->
+<!--    </p>-->
+<!--    <p><i>next</i><br>-->
+<!--        <code>msg.payload = "next"</code> will output the next timer if at least one timer is set.-->
+<!--    </p>-->
+<!--    <p><i>list</i><br>-->
+<!--        <code>msg.payload = "list"</code> will output all timers if at least one timer is set.-->
+<!--    </p>-->
+
+<!--</script>-->
