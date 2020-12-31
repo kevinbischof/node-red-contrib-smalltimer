@@ -10,6 +10,9 @@ module.exports = function (RED) {
             let nodeContext = this.context();
             let allTimers = nodeContext.get("timers") || [];
 
+            // Make sure context "timers" exists
+            nodeContext.set("timers", allTimers);
+
             function removeTimerByID(IdToRemove) {
                 if (IdToRemove > 0) {
                     allTimers = nodeContext.get("timers")
@@ -28,23 +31,25 @@ module.exports = function (RED) {
 
             function getExpiredTimers() {
                 allTimers = nodeContext.get("timers");
-                if (allTimers || allTimers.length === 0) {
-                    let timestampNow = new Date().getTime();
+                if (allTimers) {
+                    if (allTimers.length > 0) {
+                        let timestampNow = new Date().getTime();
 
-                    for (let i = 0; i < allTimers.length; i++) {
-                        let id = allTimers[i].id;
-                        let timestampToCheck = allTimers[i].timestamp;
-                        if (timestampNow > timestampToCheck) {
-                            removeTimerByID(allTimers[i].id);
-                            msg.payload = "Timer mit ID " + id + " ist abgelaufen!";
-                            // node.send(msg);
-                        } else {
-                            msg.payload = "Timer mit ID " + id + " läuft noch!";
-                            // node.send(msg);
+                        for (let i = 0; i < allTimers.length; i++) {
+                            let id = allTimers[i].id;
+                            let timestampToCheck = allTimers[i].timestamp;
+                            if (timestampNow > timestampToCheck) {
+                                removeTimerByID(allTimers[i].id);
+                                msg.payload = "Timer mit ID " + id + " ist abgelaufen!";
+                                // node.send(msg);
+                            } else {
+                                msg.payload = "Timer mit ID " + id + " läuft noch!";
+                                // node.send(msg);
+                            }
                         }
+                    } else {
+                        msg.payload = "No timers set!";
                     }
-                } else {
-                    msg.payload = "No timers set!";
                 }
             }
 
