@@ -9,6 +9,7 @@ module.exports = function (RED) {
             }
 
             const status = {
+                CREATED: "created",
                 EXPIRED: "expired",
                 REMOVED: "removed",
                 RUNNING: "running",
@@ -22,6 +23,7 @@ module.exports = function (RED) {
 
             // Make sure context "timers" exists
             nodeContext.set("timers", allTimers);
+            nodeContext.set("idCounter", idCounter);
 
             function setTimer(timer) {
                 let seconds = timer.seconds;
@@ -30,6 +32,11 @@ module.exports = function (RED) {
 
                 if (seconds === undefined || minutes === undefined || hours === undefined) {
                     returnMessage.payload = "Error! Seconds, minutes, hours and days must be set!";
+                    node.send(returnMessage);
+                    return;
+                }
+                if (seconds === 0 && minutes === 0 && hours === 0) {
+                    returnMessage.payload = "Error! Seconds, minutes, hours or days must be > 0!";
                     node.send(returnMessage);
                     return;
                 }
@@ -59,10 +66,10 @@ module.exports = function (RED) {
                 let id = nodeContext.get("idCounter") + 1;
                 let store = {
                     id: id,
-                    status: status.RUNNING,
+                    status: status.CREATED,
                     timestamp: newTimer.getTime(),
                     restTime: calcTimeUntilTimestamp(newTimer.getTime()),
-                    notice: "Timer with ID " + id + " started."
+                    notice: "Timer with ID " + id + " " + status.CREATED
                 }
 
                 // increase id counter by 1
@@ -73,10 +80,7 @@ module.exports = function (RED) {
                 allTimers.push(store)
                 nodeContext.set("timers", allTimers);
 
-                // Return new stored timer from node context
-                returnMessage.payload = nodeContext.get("timers").filter(x => {
-                    return x.id === store.id;
-                })[0]
+                returnMessage.payload = store;
                 node.send(returnMessage);
             }
 
@@ -165,6 +169,7 @@ module.exports = function (RED) {
                         if (allTimers.length > 0) {
                             for(let i = 0; i < allTimers.length; i++) {
                                 let tmp = allTimers[i];
+                                tmp.status = status.RUNNING;
                                 tmp.restTime = calcTimeUntilTimestamp(allTimers[i].timestamp);
                                 allTimers[i] = tmp;
                             }
@@ -186,6 +191,7 @@ module.exports = function (RED) {
                     if (allTimers) {
                         if (allTimers.length > 0) {
                             allTimers = sortTimersByTimestamp(allTimers);
+                            allTimers[0].status = status.RUNNING;
                             allTimers[0].restTime = calcTimeUntilTimestamp(allTimers[0].timestamp);
                             returnMessage.payload = allTimers[0];
                         } else {
