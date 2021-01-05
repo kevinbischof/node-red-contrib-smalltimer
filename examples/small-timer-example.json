@@ -1,0 +1,461 @@
+[
+  {
+    "id": "7bba064a.09cec8",
+    "type": "tab",
+    "label": "small-timer",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "65d35e52.25b7c",
+    "type": "small-timer",
+    "z": "7bba064a.09cec8",
+    "x": 770,
+    "y": 300,
+    "wires": [
+      [
+        "9a3dadb4.97096"
+      ]
+    ]
+  },
+  {
+    "id": "25f67078.18581",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 420,
+    "wires": [
+      [
+        "94cf36e.0595dc8"
+      ]
+    ]
+  },
+  {
+    "id": "9a3dadb4.97096",
+    "type": "debug",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1010,
+    "y": 300,
+    "wires": []
+  },
+  {
+    "id": "94cf36e.0595dc8",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Remove next timer",
+    "func": "msg.action = \"removeNextTimer\";\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 450,
+    "y": 420,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "1aaf8314.a2795d",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Remove timer with ID 3",
+    "func": "msg.action = \"removeTimerByID\";\n\nmsg.timer = {\n    id: 3\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 430,
+    "y": 480,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "5c1dcea0.a1505",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 480,
+    "wires": [
+      [
+        "1aaf8314.a2795d"
+      ]
+    ]
+  },
+  {
+    "id": "337ec4ec.65d58c",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "List timers",
+    "func": "msg.action = \"getAllTimers\";\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 470,
+    "y": 360,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "7e3d8a23.3f3244",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 360,
+    "wires": [
+      [
+        "337ec4ec.65d58c"
+      ]
+    ]
+  },
+  {
+    "id": "d633d937.0b2ea8",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Create timer \"01:10:35\"",
+    "func": "msg.action = \"setTimer\";\n\nmsg.timer = {\n    seconds: 35,\n    minutes: 10,\n    hours: 01\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 430,
+    "y": 240,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "2757b31f.8c10bc",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 240,
+    "wires": [
+      [
+        "d633d937.0b2ea8"
+      ]
+    ]
+  },
+  {
+    "id": "4452856b.28dd6c",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 300,
+    "wires": [
+      [
+        "cfe40d59.f2316"
+      ]
+    ]
+  },
+  {
+    "id": "cfe40d59.f2316",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Next timer",
+    "func": "msg.action = \"getNextTimer\";\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 470,
+    "y": 300,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "761c67fb.df37d8",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 540,
+    "wires": [
+      [
+        "c9d08ae0.87a8b8"
+      ]
+    ]
+  },
+  {
+    "id": "c9d08ae0.87a8b8",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Remove all timers",
+    "func": "msg.action = \"removeAllTimers\";\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 450,
+    "y": 540,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "d2efc6da.73f858",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 60,
+    "wires": [
+      [
+        "c49295bf.9715b8"
+      ]
+    ]
+  },
+  {
+    "id": "c49295bf.9715b8",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Create timer \"00:00:05\"",
+    "func": "msg.action = \"setTimer\";\n\nmsg.timer = {\n    seconds: 5,\n    minutes: 0,\n    hours: 0\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 430,
+    "y": 60,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "37e47043.fa6be",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 180,
+    "wires": [
+      [
+        "8a0abcf3.6e36b"
+      ]
+    ]
+  },
+  {
+    "id": "8a0abcf3.6e36b",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Create timer \"00:15:00\"",
+    "func": "msg.action = \"setTimer\";\n\nmsg.timer = {\n    seconds: 00,\n    minutes: 15,\n    hours: 0\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 430,
+    "y": 180,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  },
+  {
+    "id": "8830d46c.345b38",
+    "type": "inject",
+    "z": "7bba064a.09cec8",
+    "name": "",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 120,
+    "wires": [
+      [
+        "3f73c04.96b404"
+      ]
+    ]
+  },
+  {
+    "id": "3f73c04.96b404",
+    "type": "function",
+    "z": "7bba064a.09cec8",
+    "name": "Create timer \"00:01:00\"",
+    "func": "msg.action = \"setTimer\";\n\nmsg.timer = {\n    seconds: 0,\n    minutes: 1,\n    hours: 0\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 430,
+    "y": 120,
+    "wires": [
+      [
+        "65d35e52.25b7c"
+      ]
+    ]
+  }
+]
